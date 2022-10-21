@@ -1,10 +1,11 @@
 .data
-vetor: .word 1 5 0 0 1 4 2 4 6 8 2
+vetor: .word 5 7 5 2 7 5 1 5 0 0 0 1 6 1
 .text
 main:
 la x12, vetor
-addi x13, x0, 11
-jal x1, verificacpf
+addi x13, x0, 14
+addi x14, x0, 1 
+jal x1, verificacadastro
 beq x0, x0, FIM
 ##### START MODIFIQUE AQUI START #####
 
@@ -122,7 +123,10 @@ lw x21, 0(x20) # x21 recebe o valor na última posição do vetor de cadastro
 bne x21, x8, cadastro_invalido # Se o valor calculado para o último valor do cadastro for diferente do valor passado, o cadastro é inválido
 beq x0, x0, cadastro_valido # Se chegamos nessa intrução, nosso cadastro é válido e chamaos a instrução feita para esse caso
 
-verificadastro: jalr x0, 0(x1)
+verificacadastro: 
+beq x14, x0, verificacpf
+bne x14, x0, verificacnpj
+jalr x0, 0(x1)
 
 ##### END MODIFIQUE AQUI END #####
 FIM: add x1, x0, x10
