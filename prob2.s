@@ -1,10 +1,10 @@
 .data
-vetor: .word 5 7 5 2 7 5 1 5 0 0 0 1 6 1
+vetor: .word 7 0 0 7 6 1 6 3 6 4 4
 .text
 main:
 la x12, vetor
-addi x13, x0, 14
-addi x14, x0, 1 
+addi x13, x0, 11
+addi x14, x0, 0
 jal x1, verificacadastro
 beq x0, x0, FIM
 ##### START MODIFIQUE AQUI START #####
@@ -45,8 +45,8 @@ addi x19, x0, 2 # x19 recebe o valor da constante 2, útil para contas nos algor
 addi x13, x13, -1 # Essa e as próximas 2 linhas configuram x13 para ser a posição final do vetor, conforme seu tamanho
 slli x13, x13, 2
 add x13, x12, x13
-addi sp, sp, -16 # Aloco dois espaços na pilha
-sw x13, 8(sp) # Armazeno o valor de endereço do final do vetor na segunda posição da pilha
+addi sp, sp, -8 # Aloco dois espaços na pilha
+sw x13, 4(sp) # Armazeno o valor de endereço do final do vetor na segunda posição da pilha
 sw x1, 0(sp) # Armazeno o valor de x1 (caminho de instrução para finalizar a execução) no topo da pilha
 addi x13, x13, -8 # x13 agora armazena o endereço da antepenúltima posição do vetor (importante para a verificação dos cadastros)
 add x5, x0, x0 # x5 será um contador e será inicializado com 0
@@ -55,7 +55,7 @@ jal x1, soma_digitos_cpf # Pulo para a instrução de soma de dígitos de CPF e 
 remu x6, x5, x11 # x6 recebe o resto deixado pela soma dos dígitos do CPF (armazenado em x5) na divisão por 11
 jal x1, checa_resto # Pulo para a instrução de checagem de resto e linko x1 à próxima instrução
 lw x1, 0(sp) # Armazeno em x1 o valor do topo da pilha, caminho de instrução para finalizar a execução armazenado anteriormente na memória
-lw x20, 8(sp) # Armazeno em x20 o segundo valor na pilha, endereço do final do vetor de cadastro armazenado anteriormente
+lw x20, 4(sp) # Armazeno em x20 o segundo valor na pilha, endereço do final do vetor de cadastro armazenado anteriormente
 addi x20, x20, -4 # x20 recebe agora o endereço da penúltima posição do vetor de cadastro
 lw x21, 0(x20) # x21 recebe o valor na penúltima posição do vetor de cadastro
 bne x21, x8, cadastro_invalido # Se o valor calculado para o penúltimo valor do cadastro for diferente do valor passado, o cadastro é inválido
@@ -66,8 +66,8 @@ jal x1, soma_digitos_cpf # Pulo para a instrução de soma de dígitos de CPF e 
 remu x6, x5, x11 # x6 recebe o resto deixado pela soma dos dígitos do CPF (armazenado em x5) na divisão por 11
 jal x1, checa_resto # Pulo para a instrução de checagem de resto e linko x1 à próxima instrução
 lw x1, 0(sp) # Armazeno em x1 o valor do topo da pilha, caminho de instrução para finalizar a execução armazenado anteriormente na memória
-lw x20, 8(sp) # Armazeno em x20 o segundo valor na pilha, endereço do final do vetor de cadastro armazenado anteriormente
-addi sp, sp, 16 # Desaloco duas posições na pilha
+lw x20, 4(sp) # Armazeno em x20 o segundo valor na pilha, endereço do final do vetor de cadastro armazenado anteriormente
+addi sp, sp, 8 # Desaloco duas posições na pilha
 lw x21, 0(x20) # x21 recebe o valor na última posição do vetor de cadastro
 bne x21, x8, cadastro_invalido # Se o valor calculado para o último valor do cadastro for diferente do valor passado, o cadastro é inválido
 beq x0, x0, cadastro_valido # Se chegamos nessa intrução, nosso cadastro é válido e chamaos a instrução feita para esse caso
@@ -92,8 +92,8 @@ addi x29, x0, 8 # x29 recebe a contante 8, valor útil para os cálculos de veri
 addi x13, x13, -1 # Essa e as próximas 2 linhas configuram x13 para ser a posição final do vetor, conforme seu tamanho
 slli x13, x13, 2
 add x13, x12, x13
-addi sp, sp, -16 # Aloco dois espaços na pilha
-sw x13, 8(sp) # Armazeno o valor de endereço do final do vetor na segunda posição da pilha
+addi sp, sp, -8 # Aloco dois espaços na pilha
+sw x13, 4(sp) # Armazeno o valor de endereço do final do vetor na segunda posição da pilha
 sw x1, 0(sp) # Armazeno o valor de x1 (caminho de instrução para finalizar a execução) no topo da pilha
 addi x13, x13, -8 # x13 agora armazena o endereço da antepenúltima posição do vetor (importante para a verificação dos cadastros)
 add x5, x0, x0 # x5 será um contador e será inicializado com 0
@@ -104,7 +104,7 @@ addi x19, x0, 2 # x19 recebe o valor da constante 2
 remu x6, x5, x11 # x6 recebe o resto deixado pela soma dos dígitos do CPF (armazenado em x5) na divisão por 11
 jal x1, checa_resto # Pulo para a instrução de checagem de resto e linko x1 à próxima instrução
 lw x1, 0(sp) # Armazeno em x1 o valor do topo da pilha, caminho de instrução para finalizar a execução armazenado anteriormente na memória
-lw x20, 8(sp) # Armazeno em x20 o segundo valor na pilha, endereço do final do vetor de cadastro armazenado anteriormente
+lw x20, 4(sp) # Armazeno em x20 o segundo valor na pilha, endereço do final do vetor de cadastro armazenado anteriormente
 addi x20, x20, -4 # x20 recebe agora o endereço da penúltima posição do vetor de cadastro
 lw x21, 0(x20) # x21 recebe o valor na penúltima posição do vetor de cadastro
 bne x21, x8, cadastro_invalido # Se o valor calculado para o penúltimo valor do cadastro for diferente do valor passado, o cadastro é inválido
@@ -117,8 +117,8 @@ addi x19, x0, 2 # x19 recebe o valor da constante 2
 remu x6, x5, x11 # x6 recebe o resto deixado pela soma dos dígitos do CPF (armazenado em x5) na divisão por 11
 jal x1, checa_resto # Pulo para a instrução de checagem de resto e linko x1 à próxima instrução
 lw x1, 0(sp) # Armazeno em x1 o valor do topo da pilha, caminho de instrução para finalizar a execução armazenado anteriormente na memória
-lw x20, 8(sp) # Armazeno em x20 o segundo valor na pilha, endereço do final do vetor de cadastro armazenado anteriormente
-addi sp, sp, 16 # Desaloco duas posições na pilha
+lw x20, 4(sp) # Armazeno em x20 o segundo valor na pilha, endereço do final do vetor de cadastro armazenado anteriormente
+addi sp, sp, 8 # Desaloco duas posições na pilha
 lw x21, 0(x20) # x21 recebe o valor na última posição do vetor de cadastro
 bne x21, x8, cadastro_invalido # Se o valor calculado para o último valor do cadastro for diferente do valor passado, o cadastro é inválido
 beq x0, x0, cadastro_valido # Se chegamos nessa intrução, nosso cadastro é válido e chamaos a instrução feita para esse caso
