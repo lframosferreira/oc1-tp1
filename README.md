@@ -1,2 +1,1 @@
-# TP1_OC1
-Repositório destinado ao trabalho prático de Organização de Computadores I
+Repositório destinado ao trabalho prático I de Organização de Computadores I
